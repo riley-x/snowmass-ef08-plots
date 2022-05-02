@@ -175,5 +175,7 @@ legend = ax.legend(legend_patches, legend_labels, framealpha=1, edgecolor='white
 
 
 # In[ ]:
+print(ys)
+fig.set_size_inches(20, ys[-1]+bar_height*2) # to keep bar width roughly the same. bar_height*2 is approximate to account for margins...
 fig.tight_layout()
 fig.savefig("test.jpg")
