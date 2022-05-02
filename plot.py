@@ -32,33 +32,19 @@ atlas_mpl_style.use_atlas_style(fancyLegend=True)
 #       - 'annotation': An annotation is added to the group label
 #       - 'current limits': A value for the current limit, which is drawn as a vertical bar
 vals = {
-    '2-body\n$m_{LSP}$=0': {
-        'HL-LHC': [1.7, 'ATL-PHYS-PUB-2018-021'],
-        'FCC-hh': [10.8, 'CERN-ACC-2018-0056'],
-        'ILC': [0.25, '$\\sqrt{s}/2$'],
-        'CLIC': [1.5, '$\\sqrt{s}/2$'],
-        'annotation': '$m_{LSP}=0$',
-        'current limits': 1.25,
+    'Massless Neutralino': {
+        'HL-LHC': [1.7, 'Extrapolation'],
+        'FCC-hh': [10.8, 'CERN-TH-2016-111'],
+        'CLIC': [1.5, 'Private communication\n(ES Report)'],
+        'annotation': r'$m(\tilde{chi_1^0})=0$',
+        'current limits': 1.76,
     },
-    '3-body': {
-        'HL-LHC': [0.85, 'ATL-PHYS-PUB-2018-021'],
-        'FCC-hh': [10, 'CERN-ACC-2018-0056'],
-        'ILC': [0.25, '~$\\sqrt{s}/2$'],
-        'CLIC': [1.5, '~$\\sqrt{s}/2$'],
-        'annotation': r'$\widetilde{t}_1 \to bW\widetilde{\chi}_1^0$',
-        'current limits': 0.75,
-    },
-    '4-body': {
-        'HL-LHC': [0.95, 'ATL-PHYS-PUB-2018-021'],
-        'FCC-hh': [5, 'CERN-ACC-2019-0036'],
-        'ILC': [0.25, '~$\\sqrt{s}/2$'],
-        'CLIC': [1.5, '~$\\sqrt{s}/2$'],
-        'annotation': r"$\widetilde{t}_1 \to bff'\widetilde{\chi}_1^0$",
-        'current limits': 0.625,
-    },
-    'Precision\nHiggs': {
-        'FCC-ee': [1, '1707.03399'],
-        'CEPC': [0.8, '1707.03399'],
+    'Compressed': {
+        'HL-LHC': [0.85, 'Extrapolation'],
+        'FCC-hh': [10, 'CERN-TH-2016-111'],
+        'CLIC': [1.5, 'Private communication\n(ES Report)'],
+        'annotation': r'add notation',
+        'current limits': 0,
     },
 }
 
