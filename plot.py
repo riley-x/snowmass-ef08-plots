@@ -175,7 +175,5 @@ legend = ax.legend(legend_patches, legend_labels, framealpha=1, edgecolor='white
 
 
 # In[ ]:
-
-
-
-
+fig.tight_layout()
+fig.savefig("test.jpg")
