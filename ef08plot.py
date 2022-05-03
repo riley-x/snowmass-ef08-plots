@@ -15,9 +15,12 @@ def plot(filename, xlabel, vals, styles):
     '''
     @param vals:
         A dictionary of group:data, with each entry corresponding to a group of bars
-        in top to bottom order. The group name is shown on the y-label. `data` should be
-        a dictionary containing entries collider:[limit, reference], in top to bottom
-        order. It can also have optional entries
+        in top to bottom order. The group name is shown on the y-label. 
+
+        `data` should be a dictionary containing entries collider:[limit, reference], 
+        in top to bottom order. `limit` can also be a tuple (min, mid, max) to show a range. 
+
+        `data` can also have optional entries 
             - 'annotation': An annotation is added to the group label
             - 'current limits': A value for the current limit, which is drawn as a vertical bar
     @param styles:
@@ -31,11 +34,13 @@ def plot(filename, xlabel, vals, styles):
 
         https://matplotlib.org/3.5.0/api/_as_gen/matplotlib.axes.Axes.barh.html
     '''
+    ### Setup and collections ###
     fig, ax = plt.subplots()
     fig.set_dpi(144)
 
     bar_height = 1 # height of a bar in data coordinates (keep this at 1)
     group_pad = 0.5 # space between groups in data coordinates
+    reference_pad = 0.05 # in axes coordinates
 
     # y-groups (search method)
     labels = [] # string labels for each group
@@ -47,19 +52,26 @@ def plot(filename, xlabel, vals, styles):
     ys = [] # y position of each bar (lower edge)
     widths = [] # width of each bar
     references = [] # string reference of each bar
+    ranges = [] # list of (y, xmin, xmax) of where to plot a hatching indicating a range of values
     opts = {} # option : list per bar
 
     # legend
     legend_indexes = {} # collider : index into bars.patches
 
-    # Collate info. Loop from top to bottom (y-axis will be inverted, so start at y=0 and go up).
-    y = 0
+    ### Collate info ###
+    y = 0 # Loop from top to bottom (y-axis will be inverted, so start at y=0 and go up).
     for i,(group,colliders) in enumerate(vals.items()):
         y_group_start = y
+
+        ### Collider bars ###
         for collider,limits in colliders.items():
             if collider in ['annotation', 'current limits']:
                 continue
-            widths.append(limits[0])
+            if hasattr(limits[0], '__getitem__'): # plot a range
+                widths.append(limits[0][1])
+                ranges.append((y, limits[0][0], limits[0][2]))
+            else:
+                widths.append(limits[0])
             references.append(limits[1])
             ys.append(y)
             for opt,opt_val in styles[collider].items():
@@ -67,6 +79,8 @@ def plot(filename, xlabel, vals, styles):
                     opts.setdefault(opt, []).append(opt_val)
             legend_indexes.setdefault(collider, len(ys) - 1)
             y += bar_height
+
+        ### Group info ###
         if annotation := colliders.get('annotation'):
             group += '\n' + annotation
         labels.append(group)
@@ -77,7 +91,7 @@ def plot(filename, xlabel, vals, styles):
         y += group_pad
     dividers = dividers[:-1] # don't draw a divider after the last group
 
-    # Auto-set hatch color
+    ### Auto-set hatch color ###
     def darken(c, value=3):
         rgba = mcolors.to_rgba(c)
         h,l,s = colorsys.rgb_to_hls(*rgba[:3])
@@ -86,7 +100,7 @@ def plot(filename, xlabel, vals, styles):
     if 'color' in opts and 'hatch' in opts and 'edgecolor' not in opts:
         opts['edgecolor'] = [darken(c) for c in opts['color']]
 
-    # Plot main bars
+    ### Plot main bars ###
     bars = ax.barh(ys, widths, height=bar_height, align='edge', **opts)
     ax.set_yticks(label_ys, labels)
     ax.tick_params(axis='y', which='minor', left=False, right=False)
@@ -95,25 +109,37 @@ def plot(filename, xlabel, vals, styles):
     atlas_mpl_style.set_xlabel(xlabel)
     atlas_mpl_style.set_ylabel("Search Method")
 
-    # Plot current limits
+    ### Plot range overlays ###
+    for y,x0,x1 in ranges:
+        patch_range = mpatches.Rectangle((x0, y), x1 - x0, bar_height, hatch='////', linestyle='', edgecolor='#00000077', fill=False)
+        ax.add_patch(patch_range)
+
+    ### Plot current limits ###
     for x,y0,y1 in curr_lims:
         lim_line = ax.plot([x, x], [y0, y1], linestyle='-', linewidth=3, color='#333333')
 
-    # Plot references and get x extent
+    ### Plot and get x extent of references ###
     x0,x1 = ax.get_xlim()
-    max_text_x = 0 # in axes coordinates
+    max_text_width = 0 # in axes coordinates
+    patch_references = []
     for y,ref in zip(ys, references):
-        t = ax.text(x1 + 3, y + bar_height/2, ref, va='center', ha='center')
+        t = ax.text(x1, y + bar_height/2, ref, va='center', ha='center')
         bb = t.get_window_extent(renderer=fig.canvas.get_renderer()).transformed(ax.transAxes.inverted())
-        max_text_x = max(max_text_x, bb.x1)
+        max_text_width = max(max_text_width, bb.x1 - bb.x0)
+        patch_references.append(t)
         # https://stackoverflow.com/questions/24581194/matplotlib-text-bounding-box-dimensions
+    data_to_axis = ax.transData + ax.transAxes.inverted()
+    for patch in patch_references: # adjust x position
+        pos = list(data_to_axis.transform(patch.get_position())) # axis coordinates, with x = 1 currently
+        pos[0] += reference_pad + max_text_width / 2
+        pos = data_to_axis.inverted().transform(pos)
+        patch.set_position(pos)
 
-    # Plot dividers 
-    data_to_fig = ax.transAxes.inverted()
+    ### Plot dividers ###
     for y in dividers:
-        ax.axhline(y, xmax=max_text_x + 0.02, linestyle='--', color='#666666', clip_on=False)
+        ax.axhline(y, xmax=1 + 2 * reference_pad + max_text_width, linestyle='--', color='#666666', clip_on=False)
 
-    # Plot legend
+    ### Plot legend ###
     legend_patches = [lim_line[0]]
     legend_labels = ['LHC Limits']
     for collider,opts in styles.items():
@@ -121,7 +147,10 @@ def plot(filename, xlabel, vals, styles):
             legend_patches.append(bars.patches[index])
             if annotation := opts.get('annotation'):
                 collider += ' ' + annotation
-                legend_labels.append(collider)
+            legend_labels.append(collider)
+    if ranges:
+        legend_patches.append(patch_range)
+        legend_labels.append('Range of estimates')
     legend = ax.legend(legend_patches, legend_labels, framealpha=1, edgecolor='white', handleheight=1.4)
 
     # Save
