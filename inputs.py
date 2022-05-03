@@ -25,6 +25,9 @@ atlas_mpl_style.use_atlas_style(fancyLegend=True)
 #       - 'annotation': An annotation is added to the group label
 #       - 'current limits': A value for the current limit, which is drawn as a vertical bar
 
+xlabel = r'$m(\widetilde{t}_1)$ [GeV]'
+filename = 'stop'
+
 vals = {
         '2-body': {
                     'HL-LHC': [1.7, 'ATL-PHYS-PUB-2018-021'],
@@ -76,4 +79,3 @@ styles = {
         'CEPC': {'annotation':'0.24 TeV, 10 ab$^{-1}$', 'color':cmap(5), 'hatch':'x'},
     }
 
-xlabel = r'$m(\widetilde{t}_1)$ [GeV]'
