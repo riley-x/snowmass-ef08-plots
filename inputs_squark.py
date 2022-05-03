@@ -9,6 +9,7 @@ import atlas_mpl_style
 import colorsys
 import numpy as np
 atlas_mpl_style.use_atlas_style(fancyLegend=True)
+import ef08plot as ef08
 
 ################################################################
 ###                          INPUTS                          ###
@@ -25,37 +26,23 @@ atlas_mpl_style.use_atlas_style(fancyLegend=True)
 #       - 'annotation': An annotation is added to the group label
 #       - 'current limits': A value for the current limit, which is drawn as a vertical bar
 
-xlabel = r'$m(\widetilde{t}_1)$ [GeV]'
-filename = 'stop'
+xlabel = r'$m(\widetilde{q}_1)$ [GeV]'
+filename = 'squark'
 
 vals = {
-        '2-body': {
-                    'HL-LHC': [1.7, 'ATL-PHYS-PUB-2018-021'],
-                    'FCC-hh': [10.8, 'CERN-ACC-2018-0056'],
-                    'ILC': [0.25, '$\\sqrt{s}/2$'],
-                    'CLIC': [1.5, '$\\sqrt{s}/2$'],
-                    'annotation': r'$\widetilde{t}_1 \to t\widetilde{\chi}_1^0$',
-                    'current limits': 1.25,
+        '8 squarks': {
+                    'HL-LHC': [2.5, 'CR extrapolation from CMS Run 2'],
+                    'HL-LHC': [2.6, 'CR extrapolation from ATLAS Run 2'],
+                    'FCC-hh': [14.4, 'CR extrapolation from CMS Run 2'],
+                    'annotation': r'$m(\chi) = 0$',
+                    'current limits': 1.66,
                 },
-        '3-body': {
-                    'HL-LHC': [0.85, 'ATL-PHYS-PUB-2018-021'],
-                    'FCC-hh': [10, 'CERN-ACC-2018-0056'],
-                    'ILC': [0.25, '~$\\sqrt{s}/2$'],
-                    'CLIC': [1.5, '~$\\sqrt{s}/2$'],
-                    'annotation': r'$\widetilde{t}_1 \to bW\widetilde{\chi}_1^0$',
-                    'current limits': 0.75,
-                },
-        '4-body': {
-                    'HL-LHC': [0.95, 'ATL-PHYS-PUB-2018-021'],
-                    'FCC-hh': [5, 'CERN-ACC-2019-0036'],
-                    'ILC': [0.25, '~$\\sqrt{s}/2$'],
-                    'CLIC': [1.5, '~$\\sqrt{s}/2$'],
-                    'annotation': r"$\widetilde{t}_1 \to bff'\widetilde{\chi}_1^0$",
-                    'current limits': 0.625,
-                },
-        'Precision\nHiggs': {
-                    'FCC-ee': [1, '1707.03399'],
-                    'CEPC': [0.8, '1707.03399'],
+        '1 squark': {
+                    'HL-LHC': [1.8, 'CR extrapolation from CMS Run 2'],
+                    'HL-LHC': [1.9, 'CR extrapolation from ATLAS Run 2'],
+                    'FCC-hh': [10, 'CR extrapolation from CMS Run 2'],
+                    'annotation': r'$m(\chi)=0$',
+                    'current limits': 1.1,
                 },
     }
 
@@ -79,3 +66,5 @@ styles = {
         'CEPC': {'annotation':'0.24 TeV, 10 ab$^{-1}$', 'color':cmap(5), 'hatch':'x'},
     }
 
+
+ef08.plot(filename, xlabel, vals, styles)
