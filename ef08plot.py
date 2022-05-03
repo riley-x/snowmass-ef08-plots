@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
-
-
 import matplotlib.pyplot as plt
 import matplotlib.cm as mcm
 import matplotlib.lines as mlines
@@ -13,15 +10,27 @@ import colorsys
 import numpy as np
 atlas_mpl_style.use_atlas_style(fancyLegend=True)
 
-################################################################
-###                           PLOT                           ###
-###                                                          ###
-### You hopefully don't need to edit this block, but further ###
-### customization can be hardcoded here.                     ###
-###                                                          ###
-################################################################
 
 def plot(filename, xlabel, vals, styles):
+    '''
+    @param vals:
+        A dictionary of group:data, with each entry corresponding to a group of bars
+        in top to bottom order. The group name is shown on the y-label. `data` should be
+        a dictionary containing entries collider:[limit, reference], in top to bottom
+        order. It can also have optional entries
+            - 'annotation': An annotation is added to the group label
+            - 'current limits': A value for the current limit, which is drawn as a vertical bar
+    @param styles:
+        A dictionary of collider:opts, where the colliders correspond to those
+        in `vals`. The order here is the order they appear in the legend. `opts`
+        is a dictionary of options to Axes.barh. You can optionally also include
+        a style option 'annotation':annotation, which will append the annotation
+        to the legend description.
+
+        Note that an option, if used, must be specified for all colliders.
+
+        https://matplotlib.org/3.5.0/api/_as_gen/matplotlib.axes.Axes.barh.html
+    '''
     fig, ax = plt.subplots()
     fig.set_dpi(144)
 
@@ -115,7 +124,7 @@ def plot(filename, xlabel, vals, styles):
                 legend_labels.append(collider)
     legend = ax.legend(legend_patches, legend_labels, framealpha=1, edgecolor='white', handleheight=1.4)
 
+    # Save
     fig.set_size_inches(10, ys[-1]/2.+bar_height) # to keep bar width roughly the same.
-
     fig.savefig(filename+'.png', dpi=144, bbox_inches="tight", facecolor='w')
 

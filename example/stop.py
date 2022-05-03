@@ -1,15 +1,7 @@
 #!/usr/bin/env python3
 # coding: utf-8
 
-import matplotlib.pyplot as plt
 import matplotlib.cm as mcm
-import matplotlib.lines as mlines
-import matplotlib.colors as mcolors
-import atlas_mpl_style
-import colorsys
-import numpy as np
-atlas_mpl_style.use_atlas_style(fancyLegend=True)
-
 import ef08plot as ef08
 
 ################################################################
@@ -38,7 +30,7 @@ vals = {
                     'CLIC': [1.5, '$\\sqrt{s}/2$'],
                     'annotation': r'$\widetilde{t}_1 \to t\widetilde{\chi}_1^0$',
                     'current limits': 1.25,
-                },
+        },
         '3-body': {
                     'HL-LHC': [0.85, 'ATL-PHYS-PUB-2018-021'],
                     'FCC-hh': [10, 'CERN-ACC-2018-0056'],
@@ -46,7 +38,7 @@ vals = {
                     'CLIC': [1.5, '~$\\sqrt{s}/2$'],
                     'annotation': r'$\widetilde{t}_1 \to bW\widetilde{\chi}_1^0$',
                     'current limits': 0.75,
-                },
+        },
         '4-body': {
                     'HL-LHC': [0.95, 'ATL-PHYS-PUB-2018-021'],
                     'FCC-hh': [5, 'CERN-ACC-2019-0036'],
@@ -54,12 +46,12 @@ vals = {
                     'CLIC': [1.5, '~$\\sqrt{s}/2$'],
                     'annotation': r"$\widetilde{t}_1 \to bff'\widetilde{\chi}_1^0$",
                     'current limits': 0.625,
-                },
+        },
         'Precision\nHiggs': {
                     'FCC-ee': [1, '1707.03399'],
                     'CEPC': [0.8, '1707.03399'],
-                },
-    }
+        },
+}
 
 
 # A dictionary of collider:styles, where the colliders correspond to those
@@ -79,7 +71,7 @@ styles = {
         'CLIC': {'annotation':'3 TeV, 5 ab$^{-1}$', 'color':cmap(4), 'hatch':'|'},
         'FCC-ee': {'annotation':'0.35 TeV, 12.6 ab$^{-1}$', 'color':cmap(2), 'hatch':'+'},
         'CEPC': {'annotation':'0.24 TeV, 10 ab$^{-1}$', 'color':cmap(5), 'hatch':'x'},
-    }
+}
 
 
 ef08.plot(filename, xlabel, vals, styles)
