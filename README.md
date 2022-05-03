@@ -7,4 +7,14 @@
 
 ## Use
 
-Open `plot.ipynb` in a Jupyter workbook and click 'Run All'.
+There is only one main function which you can call with
+```py
+import ef08plot as ef08
+ef08.plot(...)
+```
+Please see the docstring for `plot` for the argument values. This function generates and saves the plot.
+An interactive version is also available in `plot.ipynb`.
+
+## Examples
+
+Examples are listed in `example/`, and the corresponding images they generate in `img/`.
