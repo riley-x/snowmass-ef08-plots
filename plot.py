@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[8]:
+# In[1]:
 
 
 import matplotlib.pyplot as plt
@@ -14,7 +14,7 @@ import numpy as np
 atlas_mpl_style.use_atlas_style(fancyLegend=True)
 
 
-# In[9]:
+# In[24]:
 
 
 ################################################################
@@ -32,19 +32,33 @@ atlas_mpl_style.use_atlas_style(fancyLegend=True)
 #       - 'annotation': An annotation is added to the group label
 #       - 'current limits': A value for the current limit, which is drawn as a vertical bar
 vals = {
-    'Massless Neutralino': {
-        'HL-LHC': [1.7, 'Extrapolation'],
-        'FCC-hh': [10.8, 'CERN-TH-2016-111'],
-        'CLIC': [1.5, 'Private communication\n(ES Report)'],
-        'annotation': r'$m(\tilde{chi_1^0})=0$',
-        'current limits': 1.76,
+    '2-body': {
+        'HL-LHC': [1.7, 'ATL-PHYS-PUB-2018-021'],
+        'FCC-hh': [10.8, 'CERN-ACC-2018-0056'],
+        'ILC': [0.25, '$\\sqrt{s}/2$'],
+        'CLIC': [1.5, '$\\sqrt{s}/2$'],
+        'annotation': r'$\widetilde{t}_1 \to t\widetilde{\chi}_1^0$',
+        'current limits': 1.25,
     },
-    'Compressed': {
-        'HL-LHC': [0.85, 'Extrapolation'],
-        'FCC-hh': [10, 'CERN-TH-2016-111'],
-        'CLIC': [1.5, 'Private communication\n(ES Report)'],
-        'annotation': r'add notation',
-        'current limits': 0,
+    '3-body': {
+        'HL-LHC': [0.85, 'ATL-PHYS-PUB-2018-021'],
+        'FCC-hh': [10, 'CERN-ACC-2018-0056'],
+        'ILC': [0.25, '~$\\sqrt{s}/2$'],
+        'CLIC': [1.5, '~$\\sqrt{s}/2$'],
+        'annotation': r'$\widetilde{t}_1 \to bW\widetilde{\chi}_1^0$',
+        'current limits': 0.75,
+    },
+    '4-body': {
+        'HL-LHC': [0.95, 'ATL-PHYS-PUB-2018-021'],
+        'FCC-hh': [5, 'CERN-ACC-2019-0036'],
+        'ILC': [0.25, '~$\\sqrt{s}/2$'],
+        'CLIC': [1.5, '~$\\sqrt{s}/2$'],
+        'annotation': r"$\widetilde{t}_1 \to bff'\widetilde{\chi}_1^0$",
+        'current limits': 0.625,
+    },
+    'Precision\nHiggs': {
+        'FCC-ee': [1, '1707.03399'],
+        'CEPC': [0.8, '1707.03399'],
     },
 }
 
@@ -68,8 +82,10 @@ styles = {
     'CEPC': {'annotation':'0.24 TeV, 10 ab$^{-1}$', 'color':cmap(5), 'hatch':'x'},
 }
 
+xlabel = r'$m(\widetilde{t}_1)$ [GeV]'
 
-# In[11]:
+
+# In[25]:
 
 
 ################################################################
@@ -141,7 +157,7 @@ ax.set_yticks(label_ys, labels)
 ax.tick_params(axis='y', which='minor', left=False, right=False)
 ax.set_ylim(0, ys[-1] + bar_height)
 ax.invert_yaxis()
-atlas_mpl_style.set_xlabel("Mass Reach [TeV]")
+atlas_mpl_style.set_xlabel(xlabel)
 atlas_mpl_style.set_ylabel("Search Method")
 
 # Plot current limits
@@ -173,9 +189,14 @@ for collider,opts in styles.items():
         legend_labels.append(collider)
 legend = ax.legend(legend_patches, legend_labels, framealpha=1, edgecolor='white', handleheight=1.4)
 
+fig.set_size_inches(10, ys[-1]/2.+bar_height) # to keep bar width roughly the same.
 
-# In[ ]:
-print(ys)
-fig.set_size_inches(20, ys[-1]+bar_height*2) # to keep bar width roughly the same. bar_height*2 is approximate to account for margins...
-fig.tight_layout()
-fig.savefig("test.jpg")
+
+# In[26]:
+
+
+################################################################
+###                           SAVE                           ###
+################################################################
+fig.savefig('stop.png', dpi=144, bbox_inches="tight", facecolor='w')
+
