@@ -156,5 +156,5 @@ def plot(filename, xlabel, vals, styles):
 
     # Save
     fig.set_size_inches(10, ys[-1]/2.+bar_height) # to keep bar width roughly the same.
-    fig.savefig(filename+'.png', dpi=144, bbox_inches="tight", facecolor='w')
+    fig.savefig('../img/'+filename+'.png', dpi=144, bbox_inches="tight", facecolor='w')
 
