@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import matplotlib.cm as mcm
 import matplotlib.lines as mlines
 import matplotlib.colors as mcolors
+import matplotlib.patches as mpatches
 import atlas_mpl_style
 import colorsys
 import numpy as np
