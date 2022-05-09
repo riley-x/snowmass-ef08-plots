@@ -4,21 +4,6 @@
 import matplotlib.cm as mcm
 import ef08plot as ef08
 
-################################################################
-###                          INPUTS                          ###
-###                                                          ###
-### Edit the `vals` and `styles` variables with your data    ###
-### and configuration                                        ###
-###                                                          ###
-################################################################
-
-# A dictionary of group:data, with each entry corresponding to a group of bars
-# in top to bottom order. The group name is shown on the y-label. `data` should be
-# a dictionary containing entries collider:[limit, reference], in top to bottom
-# order. It can also have optional entries
-#       - 'annotation': An annotation is added to the group label
-#       - 'current limits': A value for the current limit, which is drawn as a vertical bar
-
 xlabel = r'$m(\widetilde{t}_1)$ [GeV]'
 filename = 'stop'
 
@@ -54,15 +39,6 @@ vals = {
 }
 
 
-# A dictionary of collider:styles, where the colliders correspond to those
-# in `vals`. The order here is the order they appear in the legend. Styles
-# is a dictionary of options to Axes.barh. You can optionally also include
-# a style option 'annotation':annotation, which will append the annotation
-# to the legend description.
-#
-# Note that an option, if used, must be specified for all colliders.
-#
-# https://matplotlib.org/3.5.0/api/_as_gen/matplotlib.axes.Axes.barh.html
 cmap = mcm.get_cmap('Set3')
 styles = {
         'HL-LHC': {'annotation':'14 TeV, 3 ab$^{-1}$', 'color':cmap(0), 'hatch':None},
