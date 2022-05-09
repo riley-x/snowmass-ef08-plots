@@ -11,7 +11,7 @@ import numpy as np
 atlas_mpl_style.use_atlas_style(fancyLegend=True)
 
 
-def plot(filename, xlabel, vals, styles):
+def plot(filename, xlabel, vals, styles, **kwargs):
     '''
     @param vals:
         A dictionary of group:data, with each entry corresponding to a group of bars
@@ -154,6 +154,9 @@ def plot(filename, xlabel, vals, styles):
     legend = ax.legend(legend_patches, legend_labels, framealpha=1, edgecolor='white', handleheight=1.4)
 
     # Save
-    fig.set_size_inches(10, ys[-1]/2.+bar_height) # to keep bar width roughly the same.
+    if figsize := kwargs.get(figsize):
+        fig.set_size_inches(figsize)
+    else:
+        fig.set_size_inches(10, ys[-1]/2.+bar_height) # to keep bar width roughly the same.
     fig.savefig(filename+'.png', dpi=144, bbox_inches="tight", facecolor='w')
 
