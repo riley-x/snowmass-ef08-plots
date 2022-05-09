@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 # coding: utf-8
 
+import os
+import sys
+sys.path.insert(1, os.path.realpath(os.path.pardir))
+
 import matplotlib.cm as mcm
 import ef08plot as ef08
 
