@@ -12,7 +12,7 @@ import numpy as np
 atlas_mpl_style.use_atlas_style(fancyLegend=True)
 
 
-def plot(filename, xlabel, vals, styles):
+def plot(filename, xlabel, vals, styles, extend=0):
     '''
     @param vals:
         A dictionary of group:data, with each entry corresponding to a group of bars
@@ -119,6 +119,11 @@ def plot(filename, xlabel, vals, styles):
     for x,y0,y1 in curr_lims:
         lim_line = ax.plot([x, x], [y0, y1], linestyle='-', linewidth=3, color='#333333')
 
+    # Extend x range to make room for legend if necessary
+    current = ax.get_xlim()
+    ax.set_xlim([current[0],current[1]+extend])
+
+
     ### Plot and get x extent of references ###
     x0,x1 = ax.get_xlim()
     max_text_width = 0 # in axes coordinates
@@ -153,7 +158,7 @@ def plot(filename, xlabel, vals, styles):
         legend_patches.append(patch_range)
         legend_labels.append('Range of estimates')
     legend = ax.legend(legend_patches, legend_labels, framealpha=1, edgecolor='white', handleheight=1.4)
-
+    
     # Save
     fig.set_size_inches(10, ys[-1]/2.+bar_height) # to keep bar width roughly the same.
     fig.savefig('../img/'+filename+'.png', dpi=144, bbox_inches="tight", facecolor='w')
