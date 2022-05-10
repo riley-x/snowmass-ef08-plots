@@ -11,6 +11,7 @@ import ef08plot as ef08
 xlabel = r'$m(\widetilde{q}_1)$ [TeV]'
 filename = 'squark'
 extend = 15
+legend_loc = "upper right"
 
 vals = {
         r'$\widetilde{q}_R + \widetilde{q}_L$ $(\widetilde{u}, \widetilde{d}, \widetilde{s}, \widetilde{c})$': {
@@ -41,4 +42,4 @@ styles = {
         'CEPC': {'annotation':'0.24 TeV, 10 ab$^{-1}$', 'color':cmap(5), 'hatch':'x'},
 }
 
-ef08.plot(filename, xlabel, vals, styles, extend)
+ef08.plot(filename, xlabel, vals, styles, extend, legend_loc)

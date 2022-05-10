@@ -12,7 +12,7 @@ import numpy as np
 atlas_mpl_style.use_atlas_style(fancyLegend=True)
 
 
-def plot(filename, xlabel, vals, styles, extend=0):
+def plot(filename, xlabel, vals, styles, extend=0, legend_loc="upper right"):
     '''
     @param vals:
         A dictionary of group:data, with each entry corresponding to a group of bars
@@ -157,7 +157,7 @@ def plot(filename, xlabel, vals, styles, extend=0):
     if ranges:
         legend_patches.append(patch_range)
         legend_labels.append('Range of estimates')
-    legend = ax.legend(legend_patches, legend_labels, framealpha=1, edgecolor='white', handleheight=1.4)
+    legend = ax.legend(legend_patches, legend_labels, framealpha=1, edgecolor='white', handleheight=1.4, loc=legend_loc)
     
     # Save
     fig.set_size_inches(10, ys[-1]/2.+bar_height) # to keep bar width roughly the same.

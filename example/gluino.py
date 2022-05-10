@@ -10,7 +10,8 @@ import ef08plot as ef08
 
 xlabel = r'$m(\widetilde{g})$ [TeV]'
 filename = 'gluino'
-extend = 20
+extend = 17
+legend_loc = "lower right"
 
 vals = {
         r'$\widetilde{g} \to q \overline{q} \widetilde{\chi}_1^0$': {
@@ -54,4 +55,4 @@ styles = {
         'CEPC': {'annotation':'0.24 TeV, 10 ab$^{-1}$', 'color':cmap(5), 'hatch':'x'},
 }
 
-ef08.plot(filename, xlabel, vals, styles, extend)
+ef08.plot(filename, xlabel, vals, styles, extend, legend_loc)
