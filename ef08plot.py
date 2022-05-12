@@ -93,7 +93,7 @@ def plot(filename, xlabel, vals, styles, legend_nrow=2, **kwargs):
     dividers = dividers[:-1] # don't draw a divider after the last group
 
     ### Set figure size ###
-    if figsize := kwargs.get(figsize):
+    if figsize := kwargs.get('figsize'):
         fig.set_size_inches(figsize)
     else:
         fig.set_size_inches(10, ys[-1]/2.+bar_height) # to keep bar width roughly the same.
