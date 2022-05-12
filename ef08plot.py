@@ -11,7 +11,7 @@ import numpy as np
 atlas_mpl_style.use_atlas_style(fancyLegend=True)
 
 
-def plot(filename, xlabel, vals, styles, **kwargs):
+def plot(filename, xlabel, vals, styles, legend_nrow=2, **kwargs):
     '''
     @param vals:
         A dictionary of group:data, with each entry corresponding to a group of bars
@@ -91,6 +91,12 @@ def plot(filename, xlabel, vals, styles, **kwargs):
         y += group_pad
     dividers = dividers[:-1] # don't draw a divider after the last group
 
+    ### Set figure size ###
+    if figsize := kwargs.get(figsize):
+        fig.set_size_inches(figsize)
+    else:
+        fig.set_size_inches(10, ys[-1]/2.+bar_height) # to keep bar width roughly the same.
+
     ### Auto-set hatch color ###
     def darken(c, value=3):
         rgba = mcolors.to_rgba(c)
@@ -142,21 +148,17 @@ def plot(filename, xlabel, vals, styles, **kwargs):
     ### Plot legend ###
     legend_patches = [lim_line[0]]
     legend_labels = ['LHC Limits']
+    if ranges:
+        legend_patches.append(patch_range)
+        legend_labels.append('Range of estimates')
     for collider,opts in styles.items():
         if (index := legend_indexes.get(collider)) is not None:
             legend_patches.append(bars.patches[index])
             if annotation := opts.get('annotation'):
                 collider += ' ' + annotation
             legend_labels.append(collider)
-    if ranges:
-        legend_patches.append(patch_range)
-        legend_labels.append('Range of estimates')
-    legend = ax.legend(legend_patches, legend_labels, framealpha=1, edgecolor='white', handleheight=1.4)
+    legend = ax.legend(legend_patches, legend_labels, loc='upper center', bbox_to_anchor=((1 + max_text_width) / 2, -2.5*text_height), framealpha=1, edgecolor='white', handleheight=1.4, ncol=(len(legend_labels)+legend_nrow-1)//legend_nrow)
 
-    # Save
-    if figsize := kwargs.get(figsize):
-        fig.set_size_inches(figsize)
-    else:
-        fig.set_size_inches(10, ys[-1]/2.+bar_height) # to keep bar width roughly the same.
+    ### Save ###
     fig.savefig(filename+'.png', dpi=144, bbox_inches="tight", facecolor='w')
 
