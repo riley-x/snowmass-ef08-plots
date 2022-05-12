@@ -128,11 +128,13 @@ def plot(filename, xlabel, vals, styles, legend_nrow=2, **kwargs):
     ### Plot and get x extent of references ###
     x0,x1 = ax.get_xlim()
     max_text_width = 0 # in axes coordinates
+    text_height = 0 # in axes coordinates
     patch_references = []
     for y,ref in zip(ys, references):
         t = ax.text(x1, y + bar_height/2, ref, va='center', ha='center')
         bb = t.get_window_extent(renderer=fig.canvas.get_renderer()).transformed(ax.transAxes.inverted())
         max_text_width = max(max_text_width, bb.x1 - bb.x0)
+        text_height = bb.y1 - bb.y0
         patch_references.append(t)
         # https://stackoverflow.com/questions/24581194/matplotlib-text-bounding-box-dimensions
     data_to_axis = ax.transData + ax.transAxes.inverted()
@@ -141,6 +143,7 @@ def plot(filename, xlabel, vals, styles, legend_nrow=2, **kwargs):
         pos[0] += reference_pad + max_text_width / 2
         pos = data_to_axis.inverted().transform(pos)
         patch.set_position(pos)
+
 
     ### Plot dividers ###
     for y in dividers:
