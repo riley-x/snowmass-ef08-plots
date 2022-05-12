@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import matplotlib.cm as mcm
 import matplotlib.lines as mlines
 import matplotlib.colors as mcolors
+import matplotlib.patches as mpatches
 import atlas_mpl_style
 import colorsys
 import numpy as np
@@ -160,5 +161,5 @@ def plot(filename, xlabel, vals, styles, legend_nrow=2, **kwargs):
     legend = ax.legend(legend_patches, legend_labels, loc='upper center', bbox_to_anchor=((1 + max_text_width) / 2, -2.5*text_height), framealpha=1, edgecolor='white', handleheight=1.4, ncol=(len(legend_labels)+legend_nrow-1)//legend_nrow)
 
     ### Save ###
-    fig.savefig(filename+'.png', dpi=144, bbox_inches="tight", facecolor='w')
+    fig.savefig('../img/'+filename+'.png', dpi=144, bbox_inches="tight", facecolor='w')
 
