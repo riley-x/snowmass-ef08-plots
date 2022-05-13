@@ -13,9 +13,9 @@ filename = 'squark'
 
 vals = {
         r'$\widetilde{q}_R + \widetilde{q}_L$' "\n" r'$(\widetilde{u}, \widetilde{d}, \widetilde{s}, \widetilde{c})$': {
-            'HL-LHC': [(2.5, 2.55, 2.6), 'CR extrapolation from Run 2'],
-            'HE-LHC': [(4.6, 4.7, 4.8), 'CR extrapolation from Run 2'],
-            'FCC-hh': [(10,(14.4+15.1)/2,15.1), 'CR extrapolation from Run 2'],
+            'HL-LHC': [(2.5, 2.55, 2.6), 'Run 2 extrapolation'],
+            'HE-LHC': [(4.6, 4.7, 4.8), 'Run 2 extrapolation'],
+            'FCC-hh': [(10,(14.4+15.1)/2,15.1), 'Run 2 extrapolation'],
             'CLIC / Muon 3': [(1.45, 1.5, 1.5), r'European Strategy Report / $\sqrt{s}/2$'],
             'Muon 10': [10./2, r'$\sqrt{s}/2$'],
             'Muon 30': [30./2, r'$\sqrt{s}/2$'],
@@ -23,9 +23,9 @@ vals = {
             'current limits': 1.66,
         },
         r'single $\widetilde{q}$': {
-            'HL-LHC': [(1.8, 1.85, 1.9), 'CR extrapolation from Run 2'],
-            'HE-LHC': [(3.4,3.5,3.6), 'CR extrapolation from Run 2'],
-            'FCC-hh': [(10,10.2,10.4), 'CR extrapolation from Run 2'],
+            'HL-LHC': [(1.8, 1.85, 1.9), 'Run 2 extrapolation'],
+            'HE-LHC': [(3.4,3.5,3.6), 'Run 2 extrapolation'],
+            'FCC-hh': [(10,10.2,10.4), 'Run 2 extrapolation'],
             'CLIC / Muon 3': [3./2, r'$\sqrt{s}/2$'],
             'Muon 10': [10./2, r'$\sqrt{s}/2$'],
             'Muon 30': [30./2, r'$\sqrt{s}/2$'],
