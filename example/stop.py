@@ -50,4 +50,4 @@ styles = {
 }
 
 
-ef08.plot(filename, xlabel, vals, styles, figsize=(11, 9.2))
+ef08.plot(filename, vals, styles, xlabel=xlabel, figsize=(11, 9.2))

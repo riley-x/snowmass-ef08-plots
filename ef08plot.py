@@ -12,7 +12,7 @@ import numpy as np
 atlas_mpl_style.use_atlas_style(fancyLegend=True)
 
 
-def plot(filename, xlabel, vals, styles, legend_nrow=2, **kwargs):
+def plot(filename, vals, styles, legend_nrow=2, xlabel='Mass Reach', ylabel='Search Method', **kwargs):
     '''
     @param vals:
         A dictionary of group:data, with each entry corresponding to a group of bars
@@ -114,7 +114,7 @@ def plot(filename, xlabel, vals, styles, legend_nrow=2, **kwargs):
     ax.set_ylim(0, ys[-1] + bar_height)
     ax.invert_yaxis()
     atlas_mpl_style.set_xlabel(xlabel)
-    atlas_mpl_style.set_ylabel("Search Method")
+    atlas_mpl_style.set_ylabel(ylabel)
 
     ### Plot range overlays ###
     for y,x0,x1 in ranges:
