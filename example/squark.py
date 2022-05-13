@@ -22,16 +22,16 @@ vals = {
             'annotation': r'$m(\widetilde{\chi}_1^0) = 0$',
             'current limits': 1.66,
         },
-        r'single $\widetilde{q}$': {
-            'HL-LHC': [(1.8, 1.85, 1.9), 'Run 2 extrapolation'],
-            'HE-LHC': [(3.4,3.5,3.6), 'Run 2 extrapolation'],
-            'FCC-hh': [(10,10.2,10.4), 'Run 2 extrapolation'],
-            'CLIC / Muon 3': [3./2, r'$\sqrt{s}/2$'],
-            'Muon 10': [10./2, r'$\sqrt{s}/2$'],
-            'Muon 30': [30./2, r'$\sqrt{s}/2$'],
-            'annotation': r'$m(\widetilde{\chi}_1^0)=0$',
-            'current limits': 1.1,
-        },
+#        r'single $\widetilde{q}$': {
+#            'HL-LHC': [(1.8, 1.85, 1.9), 'Run 2 extrapolation'],
+#            'HE-LHC': [(3.4,3.5,3.6), 'Run 2 extrapolation'],
+#            'FCC-hh': [(10,10.2,10.4), 'Run 2 extrapolation'],
+#            'CLIC / Muon 3': [3./2, r'$\sqrt{s}/2$'],
+#            'Muon 10': [10./2, r'$\sqrt{s}/2$'],
+#            'Muon 30': [30./2, r'$\sqrt{s}/2$'],
+#            'annotation': r'$m(\widetilde{\chi}_1^0)=0$',
+#            'current limits': 1.1,
+#        },
 }
 
 
