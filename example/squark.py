@@ -10,8 +10,6 @@ import ef08plot as ef08
 
 xlabel = r'$m(\widetilde{q}_1)$ [TeV]'
 filename = 'squark'
-extend = 15
-legend_loc = "upper right"
 
 vals = {
         r'$\widetilde{q}_R + \widetilde{q}_L$' "\n" r'$(\widetilde{u}, \widetilde{d}, \widetilde{s}, \widetilde{c})$': {
@@ -49,4 +47,4 @@ styles = {
         'Muon 30': {'annotation':'TeV, 10 ab$^{-1}$', 'color':cmap(2), 'hatch':'+'}
 }
 
-ef08.plot(filename, xlabel, vals, styles, extend, legend_loc)
+ef08.plot(filename, xlabel, vals, styles, legend_nrow=1)
