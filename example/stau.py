@@ -8,13 +8,15 @@ sys.path.insert(1, os.path.realpath(os.path.pardir))
 import matplotlib.cm as mcm
 import ef08plot as ef08
 
-filename = 'smuon.png'
+filename = 'stau.png'
 vals = {
     '': {
-        'HL-LHC': [1.52, ''],
-        'HE-LHC': [3.11, ''],
-        'FCC-hh': [7.17, ''],
-        'current limits': .680,
+        'HL-LHC': [.65, 'CMS-PAS-FTR-18-010'],
+        'HE-LHC': [1.1, 'CERN-LPCC-2018-05'],
+        'FCC-hh': [2.6, 'HE-LHC re-scaled'],
+        'ILC': [0.34, 'arXiv:hep-ph/0605257'],
+        'CLIC': [1.25, 'ESR'],
+        'current limits': .42,
     },
 }
 
@@ -29,7 +31,7 @@ styles = {
     'CEPC': {'annotation':'0.24 TeV, 10 ab$^{-1}$', 'color':cmap(5), 'hatch':'x'},
 }
 
-xlabel = r'$m(\widetilde{\mu})$ [TeV]'
-ylabel = r'$\tau = 0.1$ns'
+xlabel = r'$m(\widetilde{\tau})$ [TeV]'
+ylabel = 'Colliders'
 
 ef08.plot(filename, vals, styles, xlabel=xlabel, ylabel=ylabel)
