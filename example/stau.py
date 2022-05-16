@@ -8,7 +8,7 @@ sys.path.insert(1, os.path.realpath(os.path.pardir))
 import matplotlib.cm as mcm
 import ef08plot as ef08
 
-filename = 'stau.png'
+filename = 'stau'
 vals = {
     '': {
         'HL-LHC': [.65, 'CMS-PAS-FTR-18-010'],

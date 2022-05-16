@@ -143,6 +143,7 @@ def plot(filename, vals, styles, legend_nrow=2, xlabel='Mass Reach', ylabel='Sea
         pos[0] += reference_pad + max_text_width / 2
         pos = data_to_axis.inverted().transform(pos)
         patch.set_position(pos)
+    text_height = text_height or 0.9 / (3 + len(ys))
 
 
     ### Plot dividers ###

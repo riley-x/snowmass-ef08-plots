@@ -8,7 +8,7 @@ sys.path.insert(1, os.path.realpath(os.path.pardir))
 import matplotlib.cm as mcm
 import ef08plot as ef08
 
-filename = 'smuon.png'
+filename = 'smuon'
 vals = {
     '': {
         'HL-LHC': [1.52, ''],
