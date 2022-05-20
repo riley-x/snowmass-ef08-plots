@@ -10,11 +10,24 @@ import ef08plot as ef08
 
 filename = 'smuon'
 vals = {
-    '': {
-        'HL-LHC': [1.52, ''],
-        'HE-LHC': [3.11, ''],
-        'FCC-hh': [7.17, ''],
+    'Displaced': {
+        'HL-LHC': [1.37, ''],
+        'HE-LHC': [2.75, ''],
+        'FCC-hh': [6.75, ''],
+        'annotation': r'$\tau=0.1$ ns',
         'current limits': .680,
+    },
+    r'$\Delta m(\widetilde{\mu}, \widetilde{\chi}^0_1)$'"\n$=10$ GeV": {
+        'HL-LHC': [0.53, ''],
+        'HE-LHC': [1.09, ''],
+        'FCC-hh': [2.46, ''],
+        'current limits': .225,
+    },
+    r'$\Delta m(\widetilde{\mu}, \widetilde{\chi}^0_1)$'"\n$=200$ GeV": {
+        'HL-LHC': [1.17, ''],
+        'HE-LHC': [2.36, ''],
+        'FCC-hh': [5.66, ''],
+        'current limits': .56,
     },
 }
 
@@ -30,6 +43,6 @@ styles = {
 }
 
 xlabel = r'$m(\widetilde{\mu})$ [TeV]'
-ylabel = r'$\tau = 0.1$ns'
+ylabel = "Search Method"
 
-ef08.plot(filename, vals, styles, xlabel=xlabel, ylabel=ylabel)
+ef08.plot(filename, vals, styles, xlabel=xlabel, ylabel=ylabel, figsize=(10, 12))

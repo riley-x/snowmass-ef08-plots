@@ -131,6 +131,7 @@ def plot(filename, vals, styles, legend_nrow=2, xlabel='Mass Reach', ylabel='Sea
     text_height = 0 # in axes coordinates
     patch_references = []
     for y,ref in zip(ys, references):
+        if not ref: continue
         t = ax.text(x1, y + bar_height/2, ref, va='center', ha='center')
         bb = t.get_window_extent(renderer=fig.canvas.get_renderer()).transformed(ax.transAxes.inverted())
         max_text_width = max(max_text_width, bb.x1 - bb.x0)
@@ -148,7 +149,8 @@ def plot(filename, vals, styles, legend_nrow=2, xlabel='Mass Reach', ylabel='Sea
 
     ### Plot dividers ###
     for y in dividers:
-        ax.axhline(y, xmax=1 + 2 * reference_pad + max_text_width, linestyle='--', color='#666666', clip_on=False)
+        offset = 2 * reference_pad + max_text_width if max_text_width else 0
+        ax.axhline(y, xmax=1 + offset, linestyle='--', color='#666666', clip_on=False)
 
     ### Plot legend ###
     legend_patches = [lim_line[0]]

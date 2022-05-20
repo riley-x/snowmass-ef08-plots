@@ -10,13 +10,22 @@ import ef08plot as ef08
 
 filename = 'stau'
 vals = {
-    '': {
-        'HL-LHC': [.65, 'CMS-PAS-FTR-18-010'],
-        'HE-LHC': [1.1, 'CERN-LPCC-2018-05'],
-        'FCC-hh': [2.6, 'HE-LHC re-scaled'],
+    r'$\Delta m(\widetilde{\tau}, \widetilde{\chi}^0_1)$'"\n$=10$ GeV": {
+        'HE-LHC': [.176, 'CERN-LPCC-2018-05'],
+        'FCC-hh': [.392, 'HE-LHC Re-scaled'],
+    },
+    r'$\Delta m(\widetilde{\tau}, \widetilde{\chi}^0_1)$'"\n$=100$ GeV": {
+        'HL-LHC': [[.207, .27, .373], 'CMS-PAS-FTR-18-010'],
+        'HE-LHC': [.767, 'LHC Run-2 Re-scaled'],
+        'FCC-hh': [1.748, 'LHC Run-2 Re-scaled'],
         'ILC': [0.34, 'arXiv:hep-ph/0605257'],
-        'CLIC': [1.25, 'ESR'],
-        'current limits': .42,
+        'CLIC': [1.25, 'CERN-ESU-004'],
+        'current limits': .163,
+    },
+    r'$\Delta m(\widetilde{\tau}, \widetilde{\chi}^0_1)$'"\n$>400$ GeV": {
+        'HL-LHC': [[.638, .638, .679], 'CMS-PAS-FTR-18-010'],
+        'HE-LHC': [[1.116,2.621,2.751], 'HL-LHC Re-scaled'],
+        'FCC-hh': [[6.375,6.375,6.745], 'HL-LHC Re-scaled'],
     },
 }
 
@@ -34,4 +43,4 @@ styles = {
 xlabel = r'$m(\widetilde{\tau})$ [TeV]'
 ylabel = 'Colliders'
 
-ef08.plot(filename, vals, styles, xlabel=xlabel, ylabel=ylabel)
+ef08.plot(filename, vals, styles, xlabel=xlabel, ylabel=ylabel, legend_nrow=3)
