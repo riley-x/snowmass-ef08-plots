@@ -12,7 +12,7 @@ import numpy as np
 atlas_mpl_style.use_atlas_style(fancyLegend=True)
 
 
-def plot(filename, xlabel, vals, styles, legend_nrow=2, **kwargs):
+def plot(filename, vals, styles, legend_nrow=2, xlabel='Mass Reach', ylabel='Search Method', **kwargs):
     '''
     @param vals:
         A dictionary of group:data, with each entry corresponding to a group of bars
@@ -114,7 +114,7 @@ def plot(filename, xlabel, vals, styles, legend_nrow=2, **kwargs):
     ax.set_ylim(0, ys[-1] + bar_height)
     ax.invert_yaxis()
     atlas_mpl_style.set_xlabel(xlabel)
-    atlas_mpl_style.set_ylabel("Search Method")
+    atlas_mpl_style.set_ylabel(ylabel)
 
     ### Plot range overlays ###
     for y,x0,x1 in ranges:
@@ -131,6 +131,7 @@ def plot(filename, xlabel, vals, styles, legend_nrow=2, **kwargs):
     text_height = 0 # in axes coordinates
     patch_references = []
     for y,ref in zip(ys, references):
+        if not ref: continue
         t = ax.text(x1, y + bar_height/2, ref, va='center', ha='center')
         bb = t.get_window_extent(renderer=fig.canvas.get_renderer()).transformed(ax.transAxes.inverted())
         max_text_width = max(max_text_width, bb.x1 - bb.x0)
@@ -143,11 +144,13 @@ def plot(filename, xlabel, vals, styles, legend_nrow=2, **kwargs):
         pos[0] += reference_pad + max_text_width / 2
         pos = data_to_axis.inverted().transform(pos)
         patch.set_position(pos)
+    text_height = text_height or 0.9 / (3 + len(ys))
 
 
     ### Plot dividers ###
     for y in dividers:
-        ax.axhline(y, xmax=1 + 2 * reference_pad + max_text_width, linestyle='--', color='#666666', clip_on=False)
+        offset = 2 * reference_pad + max_text_width if max_text_width else 0
+        ax.axhline(y, xmax=1 + offset, linestyle='--', color='#666666', clip_on=False)
 
     ### Plot legend ###
     legend_patches = [lim_line[0]]

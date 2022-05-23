@@ -14,3 +14,7 @@
 *.bcf
 *.blg
 *.xml
+
+
+/example/ef08plot.py
+**/__pycache__

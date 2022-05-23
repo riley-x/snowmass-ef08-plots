@@ -45,4 +45,4 @@ styles = {
         'Muon 30': {'annotation':'TeV, 10 ab$^{-1}$', 'color':cmap(2), 'hatch':'+'}
 }
 
-ef08.plot(filename, xlabel, vals, styles, legend_nrow=2)
+ef08.plot(filename, vals, styles, xlabel=xlabel, legend_nrow=2)
