@@ -15,7 +15,7 @@ vals = {
         r'$\widetilde{g} \to q \overline{q} \widetilde{\chi}_1^0$': {
             'HL-LHC': [(3.0,3.1,3.2), 'Run 2 extrapolation'],
             'HE-LHC': [(5.5,5.7,5.9), 'Run 2 extrapolation'],
-            'FCC-hh': [(17.5, (17.7+19.2)/2.,19.9), 'Run 2 extrapolation'],
+            'FCC-hh': [(17.5, (17.7+19.2)/2.,19.2), 'Run 2 extrapolation'],
             'annotation': r'$m(\widetilde{\chi}_1^0) = 0$',
             'current limits': 2.3,
         },
