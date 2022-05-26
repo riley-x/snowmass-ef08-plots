@@ -12,10 +12,10 @@ xlabel = r'$m(\widetilde{q}_1)$ [TeV]'
 filename = 'squark'
 
 vals = {
-        r'$\widetilde{q}_R + \widetilde{q}_L$' "\n" r'$(\widetilde{u}, \widetilde{d}, \widetilde{s}, \widetilde{c})$': {
+        r'$\widetilde{q} \to q \overline{q} \widetilde{\chi}_1^0$': {
             'HL-LHC': [(2.5, 2.55, 2.6), 'Run 2 extrapolation'],
             'HE-LHC': [(4.6, 4.7, 4.8), 'Run 2 extrapolation'],
-            'FCC-hh': [(10,(14.4+15.1)/2,15.1), 'Run 2 extrapolation'],
+            'FCC-hh': [(13.7,(14.4+15.1)/2,15.1), 'Run 2 extrapolation'],
             'CLIC / Muon 3': [(1.45, 1.5, 1.5), r'European Strategy Report / $\sqrt{s}/2$'],
             'Muon 10': [10./2, r'$\sqrt{s}/2$'],
             'Muon 30': [30./2, r'$\sqrt{s}/2$'],
