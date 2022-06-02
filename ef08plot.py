@@ -12,7 +12,7 @@ import numpy as np
 atlas_mpl_style.use_atlas_style(fancyLegend=True)
 
 
-def plot(filename, vals, styles, legend_nrow=2, xlabel='Mass Reach', ylabel='Search Method', **kwargs):
+def plot(vals, styles, filename='ef08plot', legend_nrow=2, xlabel='Mass Reach', ylabel='Search Method', title=None, **kwargs):
     '''
     @param vals:
         A dictionary of group:data, with each entry corresponding to a group of bars
@@ -146,15 +146,17 @@ def plot(filename, vals, styles, legend_nrow=2, xlabel='Mass Reach', ylabel='Sea
         patch.set_position(pos)
     text_height = text_height or 0.9 / (3 + len(ys))
 
-
     ### Plot dividers ###
     for y in dividers:
         offset = 2 * reference_pad + max_text_width if max_text_width else 0
         ax.axhline(y, xmax=1 + offset, linestyle='--', color='#666666', clip_on=False)
 
     ### Plot legend ###
-    legend_patches = [lim_line[0]]
-    legend_labels = ['LHC Limits']
+    legend_patches = []
+    legend_labels = []
+    if lim_line is not None:
+        legend_patches.append(lim_line[0])
+        legend_labels.append('LHC Limits')
     if ranges:
         legend_patches.append(patch_range)
         legend_labels.append('Range of estimates')
@@ -165,6 +167,9 @@ def plot(filename, vals, styles, legend_nrow=2, xlabel='Mass Reach', ylabel='Sea
                 collider += ' ' + annotation
             legend_labels.append(collider)
     legend = ax.legend(legend_patches, legend_labels, loc='upper center', bbox_to_anchor=((1 + max_text_width) / 2, -2.5*text_height), framealpha=1, edgecolor='white', handleheight=1.4, ncol=(len(legend_labels)+legend_nrow-1)//legend_nrow)
+
+    ### Add title ###
+    ax.set_title("Snowmass 2021: Collider Sensitivity to Stop Quark Mass")
 
     ### Save ###
     fig.savefig('../img/'+filename+'.png', dpi=144, bbox_inches="tight", facecolor='w')

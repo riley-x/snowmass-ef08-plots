@@ -53,4 +53,4 @@ styles = {
         'CEPC': {'annotation':'0.24 TeV, 10 ab$^{-1}$', 'color':cmap(5), 'hatch':'x'},
 }
 
-ef08.plot(filename, vals, styles, xlabel=xlabel)
+ef08.plot(vals, styles, filename=filename, xlabel=xlabel)
