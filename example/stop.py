@@ -1,11 +1,18 @@
 #!/usr/bin/env python3
 # coding: utf-8
 
+
+import os
+import sys
+sys.path.insert(1, os.path.realpath(os.path.pardir))
+
 import matplotlib.cm as mcm
 import ef08plot as ef08
 
 xlabel = r'$m(\widetilde{t}_1)$ [GeV]'
+title = "Snowmass 2021: Collider Sensitivity to Stop Quarks"
 filename = 'stop'
+figsize = (14, 9.2)
 
 vals = {
     '2-body': {
@@ -50,4 +57,4 @@ styles = {
 }
 
 
-ef08.plot(filename, vals, styles, xlabel=xlabel, figsize=(14, 9.2))
+ef08.plot(vals, styles, filename=filename, xlabel=xlabel, title=title, figsize=figsize)

@@ -45,4 +45,4 @@ styles = {
 xlabel = r'$m(\widetilde{\mu})$ [TeV]'
 ylabel = "Search Method"
 
-ef08.plot(filename, vals, styles, xlabel=xlabel, ylabel=ylabel, figsize=(10, 12))
+ef08.plot(vals, styles, filename=filename, xlabel=xlabel, ylabel=ylabel, figsize=(10, 12))

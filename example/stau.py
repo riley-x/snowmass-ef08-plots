@@ -45,4 +45,4 @@ styles = {
 xlabel = r'$m(\widetilde{\tau})$ [TeV]'
 ylabel = 'Colliders'
 
-ef08.plot(filename, vals, styles, xlabel=xlabel, ylabel=ylabel, legend_nrow=3)
+ef08.plot(vals, styles, filename=filename, xlabel=xlabel, ylabel=ylabel, legend_nrow=3)
