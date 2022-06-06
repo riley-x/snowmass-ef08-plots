@@ -8,7 +8,6 @@ sys.path.insert(1, os.path.realpath(os.path.pardir))
 import matplotlib.cm as mcm
 import ef08plot as ef08
 
-filename = 'stau'
 vals = {
     r'$\Delta m(\widetilde{\tau}, \widetilde{\chi}^0_1)$'"\n$=10$ GeV": {
         'HE-LHC': [.176, 'CERN-LPCC-2018-05'],
@@ -34,7 +33,7 @@ vals = {
 cmap = mcm.get_cmap('Set3')
 styles = {
     'HL-LHC': {'annotation':'14 TeV, 3 ab$^{-1}$', 'color':cmap(0), 'hatch':None},
-    'HE-LHC': {'annotation':'14 TeV, 3 ab$^{-1}$', 'color':cmap(1), 'hatch':'\\'},
+    'HE-LHC': {'annotation':'27 TeV, 15 ab$^{-1}$', 'color':cmap(1), 'hatch':'\\'},
     'FCC-hh': {'annotation':'100 TeV, 30 ab$^{-1}$', 'color':cmap(7), 'hatch':'/'},
     'ILC': {'annotation':'0.5 TeV, 4 ab$^{-1}$', 'color':cmap(3), 'hatch':'-'},
     'CLIC': {'annotation':'3 TeV, 5 ab$^{-1}$', 'color':cmap(4), 'hatch':'|'},
@@ -42,7 +41,12 @@ styles = {
     'CEPC': {'annotation':'0.24 TeV, 10 ab$^{-1}$', 'color':cmap(5), 'hatch':'x'},
 }
 
-xlabel = r'$m(\widetilde{\tau})$ [TeV]'
-ylabel = 'Colliders'
+opts = {
+    'filename': 'stau',
+    'title': "Snowmass 2021: Collider Sensitivity to Staus",
+    'xlabel': r'$m(\widetilde{\tau})$ [TeV]',
+    'ylabel': 'Colliders',
+    'legend_nrow': 3,
+}
 
-ef08.plot(vals, styles, filename=filename, xlabel=xlabel, ylabel=ylabel, legend_nrow=3)
+ef08.plot(vals, styles, **opts)
