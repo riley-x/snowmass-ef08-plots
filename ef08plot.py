@@ -53,7 +53,7 @@ def plot(filename, xlabel, vals, styles, legend_nrow=2, **kwargs):
     ys = [] # y position of each bar (lower edge)
     widths = [] # width of each bar
     references = [] # string reference of each bar
-    ranges = [] # list of (y, xmin, xmax) of where to plot a hatching indicating a range of values
+    ranges = [] # list of (y, xmin, xmax) of where to plot a hatching indicating a range of values. last entry, 0 == range of estimates, 1 == indirect constraints
     opts = {} # option : list per bar
 
     # legend
@@ -70,7 +70,7 @@ def plot(filename, xlabel, vals, styles, legend_nrow=2, **kwargs):
                 continue
             if hasattr(limits[0], '__getitem__'): # plot a range
                 widths.append(limits[0][1])
-                ranges.append((y, limits[0][0], limits[0][2]))
+                ranges.append((y, limits[0][0], limits[0][2], limits[0][3]))
             else:
                 widths.append(limits[0])
             references.append(limits[1])
@@ -82,21 +82,24 @@ def plot(filename, xlabel, vals, styles, legend_nrow=2, **kwargs):
             y += bar_height
 
         ### Group info ###
-        if annotation := colliders.get('annotation'):
+        if colliders.get('annotation') is not None:
+            annotation = colliders.get('annotation')
             group += '\n' + annotation
         labels.append(group)
         label_ys.append((y + y_group_start) / 2)
         dividers.append(y + group_pad / 2)
-        if lim := colliders.get('current limits'):
+        if colliders.get('current limits') is not None:
+            lim = colliders.get('current limits')
             curr_lims.append((lim, 0 if len(dividers) < 2 else dividers[-2], y if i == len(vals) - 1 else dividers[-1]))
         y += group_pad
     dividers = dividers[:-1] # don't draw a divider after the last group
 
     ### Set figure size ###
-    if figsize := kwargs.get('figsize'):
+    if kwargs.get('figsize') is not None:
+        figsize = kwargs.get('figsize')
         fig.set_size_inches(figsize)
     else:
-        fig.set_size_inches(10, ys[-1]/2.+bar_height) # to keep bar width roughly the same.
+        fig.set_size_inches(100, ys[-1]/2.+bar_height) # to keep bar width roughly the same.
 
     ### Auto-set hatch color ###
     def darken(c, value=3):
@@ -110,16 +113,23 @@ def plot(filename, xlabel, vals, styles, legend_nrow=2, **kwargs):
     ### Plot main bars ###
     bars = ax.barh(ys, widths, height=bar_height, align='edge', **opts)
     ax.set_yticks(label_ys, labels)
+    ax.tick_params(axis = 'y', which = 'major', labelsize = 30)
     ax.tick_params(axis='y', which='minor', left=False, right=False)
     ax.set_ylim(0, ys[-1] + bar_height)
     ax.invert_yaxis()
-    atlas_mpl_style.set_xlabel(xlabel)
-    atlas_mpl_style.set_ylabel("Search Method")
-
+    atlas_mpl_style.set_xlabel(xlabel, fontsize = 30)
+    atlas_mpl_style.set_ylabel("LSP,NLSP Mass Splitting", fontsize = 30)
+    ax.set_xscale('log') # comment out to remove log scale
+    #ax.tick_params(axis='x',which='minor',direction='out',length=11,width=1)
+    #ax.tick_params(axis='x',which='major',direction='out',length=15,width=1,labelsize=24)
     ### Plot range overlays ###
-    for y,x0,x1 in ranges:
-        patch_range = mpatches.Rectangle((x0, y), x1 - x0, bar_height, hatch='////', linestyle='', edgecolor='#00000077', fill=False)
-        ax.add_patch(patch_range)
+    for y,x0,x1,kind in ranges:
+        if kind == 0:
+            patch_range_0 = mpatches.Rectangle((x0, y), x1 - x0, bar_height, hatch='////', linestyle='', edgecolor='#00000077', fill=False) # range of estimates
+            ax.add_patch(patch_range_0)
+        else: 
+            patch_range_1 = mpatches.Rectangle((x0, y), x1 - x0, bar_height, hatch='+++', linestyle='', edgecolor='#00000077', fill=False) # indirect constraints
+            ax.add_patch(patch_range_1)
 
     ### Plot current limits ###
     for x,y0,y1 in curr_lims:
@@ -131,7 +141,7 @@ def plot(filename, xlabel, vals, styles, legend_nrow=2, **kwargs):
     text_height = 0 # in axes coordinates
     patch_references = []
     for y,ref in zip(ys, references):
-        t = ax.text(x1, y + bar_height/2, ref, va='center', ha='center')
+        t = ax.text(x1, y + bar_height/2, ref, va='center', ha='center',fontsize=26)
         bb = t.get_window_extent(renderer=fig.canvas.get_renderer()).transformed(ax.transAxes.inverted())
         max_text_width = max(max_text_width, bb.x1 - bb.x0)
         text_height = bb.y1 - bb.y0
@@ -153,16 +163,23 @@ def plot(filename, xlabel, vals, styles, legend_nrow=2, **kwargs):
     legend_patches = [lim_line[0]]
     legend_labels = ['LHC Limits']
     if ranges:
-        legend_patches.append(patch_range)
         legend_labels.append('Range of estimates')
+        legend_patches.append(patch_range_0)
+        # just always display both...
+        legend_labels.append('w/ indirect constraints')
+        legend_patches.append(patch_range_1)
     for collider,opts in styles.items():
-        if (index := legend_indexes.get(collider)) is not None:
+        if (legend_indexes.get(collider)) is not None:
+            index = legend_indexes.get(collider)
             legend_patches.append(bars.patches[index])
-            if annotation := opts.get('annotation'):
+            if opts.get('annotation') is not None:
+                annotation = opts.get('annotation')
                 collider += ' ' + annotation
             legend_labels.append(collider)
-    legend = ax.legend(legend_patches, legend_labels, loc='upper center', bbox_to_anchor=((1 + max_text_width) / 2, -2.5*text_height), framealpha=1, edgecolor='white', handleheight=1.4, ncol=(len(legend_labels)+legend_nrow-1)//legend_nrow)
-
+    legend = ax.legend(legend_patches, legend_labels, loc='upper center', bbox_to_anchor=((0.55 + max_text_width) / 2, -2.5*text_height), framealpha=1, edgecolor='white', handleheight=1.4, ncol=(len(legend_labels)+legend_nrow-1)//legend_nrow, fontsize = 28)
+    #legend = ax.legend(legend_patches, legend_labels, framealpha=1, edgecolor='white', handleheight=1.4)
+    #legend = ax.legend(legend_patches, legend_labels,prop={'size': 12}, loc='upper center', bbox_to_anchor=(0.3, -2.5*text_height), framealpha=1, edgecolor='white', handleheight=1.4, ncol=(len(legend_labels)+legend_nrow-1)//legend_nrow)
+    #legend = ax.legend(legend_patches, legend_labels, loc='upper center', bbox_to_anchor=(0., 0.02, 0.5, .102), framealpha=1, edgecolor='white', handleheight=1.4, ncol=(len(legend_labels)+legend_nrow-1)//legend_nrow)
     ### Save ###
     fig.savefig('../img/'+filename+'.png', dpi=144, bbox_inches="tight", facecolor='w')
 
