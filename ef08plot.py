@@ -154,7 +154,7 @@ def plot(vals, styles, filename='ef08plot', legend_nrow=2, xlabel='Mass Reach', 
     ### Plot legend ###
     legend_patches = []
     legend_labels = []
-    if lim_line is not None:
+    if curr_lims:
         legend_patches.append(lim_line[0])
         legend_labels.append('LHC Limits')
     if ranges:
@@ -169,7 +169,7 @@ def plot(vals, styles, filename='ef08plot', legend_nrow=2, xlabel='Mass Reach', 
     legend = ax.legend(legend_patches, legend_labels, loc='upper center', bbox_to_anchor=((1 + max_text_width) / 2, -2.5*text_height), framealpha=1, edgecolor='white', handleheight=1.4, ncol=(len(legend_labels)+legend_nrow-1)//legend_nrow)
 
     ### Add title ###
-    ax.set_title("Snowmass 2021: Collider Sensitivity to Stop Quark Mass")
+    ax.set_title(title)
 
     ### Save ###
     fig.savefig('../img/'+filename+'.png', dpi=144, bbox_inches="tight", facecolor='w')

@@ -8,7 +8,6 @@ sys.path.insert(1, os.path.realpath(os.path.pardir))
 import matplotlib.cm as mcm
 import ef08plot as ef08
 
-filename = 'smuon'
 vals = {
     'Displaced': {
         'HL-LHC': [1.37, ''],
@@ -34,7 +33,7 @@ vals = {
 cmap = mcm.get_cmap('Set3')
 styles = {
     'HL-LHC': {'annotation':'14 TeV, 3 ab$^{-1}$', 'color':cmap(0), 'hatch':None},
-    'HE-LHC': {'annotation':'14 TeV, 3 ab$^{-1}$', 'color':cmap(1), 'hatch':'\\'},
+    'HE-LHC': {'annotation':'27 TeV, 15 ab$^{-1}$', 'color':cmap(1), 'hatch':'\\'},
     'FCC-hh': {'annotation':'100 TeV, 30 ab$^{-1}$', 'color':cmap(7), 'hatch':'/'},
     'ILC': {'annotation':'0.5 TeV, 4 ab$^{-1}$', 'color':cmap(3), 'hatch':'-'},
     'CLIC': {'annotation':'3 TeV, 5 ab$^{-1}$', 'color':cmap(4), 'hatch':'|'},
@@ -42,7 +41,10 @@ styles = {
     'CEPC': {'annotation':'0.24 TeV, 10 ab$^{-1}$', 'color':cmap(5), 'hatch':'x'},
 }
 
-xlabel = r'$m(\widetilde{\mu})$ [TeV]'
-ylabel = "Search Method"
+opts = {
+    'filename': 'smuon',
+    'title': "Snowmass 2021: Collider Sensitivity to Smuons",
+    'xlabel': r'$m(\widetilde{\mu})$ [TeV]',
+}
 
-ef08.plot(vals, styles, filename=filename, xlabel=xlabel, ylabel=ylabel, figsize=(10, 12))
+ef08.plot(vals, styles, **opts)

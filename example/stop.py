@@ -9,11 +9,6 @@ sys.path.insert(1, os.path.realpath(os.path.pardir))
 import matplotlib.cm as mcm
 import ef08plot as ef08
 
-xlabel = r'$m(\widetilde{t}_1)$ [GeV]'
-title = "Snowmass 2021: Collider Sensitivity to Stop Quarks"
-filename = 'stop'
-figsize = (14, 9.2)
-
 vals = {
     '2-body': {
         'HL-LHC': [(1.7, 1.7, 2.56), 'ATL-PHYS-PUB-2018-021'],
@@ -56,5 +51,13 @@ styles = {
         'CEPC': {'annotation':'0.24 TeV, 10 ab$^{-1}$', 'color':cmap(5), 'hatch':'x'},
 }
 
+opts = {
+    'filename': 'stop',
+    'title': "Snowmass 2021: Collider Sensitivity to Stop Quarks",
+    'xlabel': r'$m(\widetilde{t}_1)$ [GeV]',
+    'figsize': (14, 9.2),
+    'legend_nrow': 3,
+}
 
-ef08.plot(vals, styles, filename=filename, xlabel=xlabel, title=title, figsize=figsize)
+
+ef08.plot(vals, styles, **opts)

@@ -8,8 +8,6 @@ sys.path.insert(1, os.path.realpath(os.path.pardir))
 import matplotlib.cm as mcm
 import ef08plot as ef08
 
-xlabel = r'$m(\widetilde{q}_1)$ [TeV]'
-filename = 'squark'
 
 vals = {
         r'$\widetilde{q} \to q \overline{q} \widetilde{\chi}_1^0$': {
@@ -45,4 +43,9 @@ styles = {
         'Muon 30': {'annotation':'TeV, 10 ab$^{-1}$', 'color':cmap(2), 'hatch':'+'}
 }
 
-ef08.plot(vals, styles, filename=filename, xlabel=xlabel, legend_nrow=2)
+opts = {
+        'filename': 'squark',
+        'xlabel': r'$m(\widetilde{q}_1)$ [GeV]',
+}
+
+ef08.plot(vals, styles, **opts)
